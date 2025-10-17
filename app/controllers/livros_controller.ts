@@ -1,3 +1,4 @@
+import { createLivroValidator } from '#validators/livro'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class LivrosController {
@@ -19,7 +20,8 @@ export default class LivrosController {
    * Handle form submission for the create action
    */
   async store({ request }: HttpContext) {
-    return request.body()
+    const payload = await request.validateUsing(createLivroValidator)
+    return payload
   }
 
   /**
